@@ -68,43 +68,37 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="m5L-R3-wnP">
-                                <rect key="frame" x="16" y="82" width="150" height="150"/>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Of2-hW-4h1">
+                                <rect key="frame" x="16" y="142" width="383" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="NewRoutineButton" image="plusImage"/>
+                                <color key="backgroundColor" red="0.054243605350000001" green="0.3543928536" blue="1" alpha="0.082581426060000004" colorSpace="custom" customColorSpace="sRGB"/>
+                                <state key="normal" title="Start Workout"/>
                                 <connections>
-                                    <action selector="newRoutineButton:" destination="znj-BG-Dh8" eventType="touchUpInside" id="vlO-Jo-4di"/>
-                                    <segue destination="b1d-Rd-0pM" kind="show" id="yQQ-5z-ZU6"/>
+                                    <action selector="startWorkoutButton:" destination="znj-BG-Dh8" eventType="touchUpInside" id="Mqo-nC-x73"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Imd-i3-EKl">
-                                <rect key="frame" x="209" y="82" width="150" height="150"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Welcome!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tgq-c6-Z1o">
+                                <rect key="frame" x="16" y="73" width="108" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="StartWorkoutButton" image="plusImage"/>
-                                <connections>
-                                    <action selector="startWorkoutButton:" destination="znj-BG-Dh8" eventType="touchUpInside" id="C2y-OX-UzO"/>
-                                </connections>
-                            </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Create Routine" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8yW-bg-0Oy">
-                                <rect key="frame" x="16" y="245" width="150" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Start Workout" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dgr-px-O9Q">
-                                <rect key="frame" x="209" y="245" width="150" height="21"/>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JS2-LA-PVn">
+                                <rect key="frame" x="16" y="220" width="383" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                                <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="0.089403609154929578" colorSpace="custom" customColorSpace="sRGB"/>
+                                <state key="normal" title="Create Routine"/>
+                                <connections>
+                                    <action selector="routineButton:" destination="znj-BG-Dh8" eventType="touchUpInside" id="vAm-QB-U4A"/>
+                                    <segue destination="b1d-Rd-0pM" kind="show" id="jHT-Al-TvB"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="C2F-LF-Ngo"/>
                         <connections>
-                            <outlet property="routineLabel" destination="8yW-bg-0Oy" id="6Bv-ZE-0zB"/>
-                            <outlet property="workoutLabel" destination="dgr-px-O9Q" id="TXY-Ds-YXi"/>
+                            <outlet property="welcomeText" destination="Tgq-c6-Z1o" id="hub-3o-gXB"/>
                         </connections>
                     </view>
                     <navigationItem key="navigationItem" id="yOw-ab-IdD"/>
@@ -122,14 +116,14 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Routine Name..." textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="2yi-bR-w7A">
-                                <rect key="frame" x="16" y="59" width="178" height="30"/>
+                                <rect key="frame" x="16" y="90" width="178" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JoB-F7-w4B">
-                                <rect key="frame" x="108" y="128" width="158" height="30"/>
+                                <rect key="frame" x="108" y="145" width="158" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Add Exercises"/>
                             </button>
@@ -181,7 +175,4 @@
             <point key="canvasLocation" x="476" y="-260.41979010494754"/>
         </scene>
     </scenes>
-    <resources>
-        <image name="plusImage" width="256" height="256"/>
-    </resources>
 </document>

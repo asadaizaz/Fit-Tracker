@@ -11,8 +11,8 @@ import UIKit
 class WorkoutViewController: UIStackView {
     //MARK: Properties
  
-    @IBOutlet weak var routineLabel: UILabel!
-    @IBOutlet weak var workoutLabel: UILabel!
+    @IBOutlet weak var welcomeText: UILabel!
+    
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -31,10 +31,9 @@ class WorkoutViewController: UIStackView {
     }
     //MARK: Actions
   
-    @IBAction func newRoutineButton(_ sender: UIButton) {
-        
+    @IBAction func startWorkoutButton(_ sender: UIButton) {
     }
     
-    @IBAction func startWorkoutButton(_ sender: Any) {
+    @IBAction func routineButton(_ sender: UIButton) {
     }
 }
