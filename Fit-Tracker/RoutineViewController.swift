@@ -8,14 +8,17 @@
 
 import UIKit
 
-class RoutineViewController: UIStackView {
+class RoutineViewController: UIViewController, UIPopoverControllerDelegate {
 
-    /*
-    // Only override draw() if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func draw(_ rect: CGRect) {
-        // Drawing code
+    //MARK: Properties
+    
+    @IBOutlet weak var routineTextField: UITextField!
+    //MARK:ACTIONS
+    
+    @IBAction func addExcerciseButton(_ sender: UIButton) {
+       
+        
+        
     }
-    */
-
+    
 }

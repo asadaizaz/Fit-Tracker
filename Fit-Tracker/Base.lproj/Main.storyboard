@@ -126,15 +126,45 @@
                                 <rect key="frame" x="108" y="145" width="158" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Add Exercises"/>
+                                <connections>
+                                    <action selector="addExcerciseButton:" destination="PqU-Ya-kds" eventType="touchUpInside" id="JA3-p5-kHz"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="4Bd-ze-kCj"/>
+                        <connections>
+                            <outlet property="routineTextField" destination="2yi-bR-w7A" id="7CR-nY-6tF"/>
+                        </connections>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sDN-Pi-CXh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2138.4000000000001" y="-231.63418290854574"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="DWl-fZ-vdS">
+            <objects>
+                <viewController id="KUq-Ki-LAh" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="CBS-Rp-orR">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LyV-Im-eBn">
+                                <rect key="frame" x="125" y="271" width="94" height="48"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="40"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="wpm-Z9-kPI"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="X1K-aS-Ao0" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2788" y="-213"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="LOY-L3-NYK">
