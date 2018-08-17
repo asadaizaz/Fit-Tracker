@@ -8,22 +8,14 @@
 
 import UIKit
 
-class WorkoutViewController: UIStackView {
+class WorkoutViewController: UIViewController {
     //MARK: Properties
  
-    @IBOutlet weak var welcomeText: UILabel!
+   
     
+    var routines = [Routine]()
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        didLoad()
-    }
-    
-    required init(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        didLoad()
-    }
-    
+  
     
     func didLoad() {
         //Initialization code
@@ -31,9 +23,5 @@ class WorkoutViewController: UIStackView {
     }
     //MARK: Actions
   
-    @IBAction func startWorkoutButton(_ sender: UIButton) {
-    }
-    
-    @IBAction func routineButton(_ sender: UIButton) {
-    }
+
 }
