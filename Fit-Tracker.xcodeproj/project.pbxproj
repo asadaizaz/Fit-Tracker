@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		C346C4702126666200F315F7 /* PopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C346C46F2126666200F315F7 /* PopupViewController.swift */; };
 		C346C47221266A2C00F315F7 /* ExcerciseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C346C47121266A2C00F315F7 /* ExcerciseTableViewCell.swift */; };
+		C346C47421267B3700F315F7 /* Excercise.swift in Sources */ = {isa = PBXBuildFile; fileRef = C346C47321267B3700F315F7 /* Excercise.swift */; };
+		C346C47621267BF300F315F7 /* ExcerciseTableViewController in Sources */ = {isa = PBXBuildFile; fileRef = C346C47521267BF300F315F7 /* ExcerciseTableViewController */; };
+		C346C4782126B48300F315F7 /* ExcerciseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C346C4772126B48300F315F7 /* ExcerciseViewController.swift */; };
 		C3EC4A0E2124AAC70021805C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3EC4A0D2124AAC70021805C /* AppDelegate.swift */; };
 		C3EC4A102124AAC70021805C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3EC4A0F2124AAC70021805C /* ViewController.swift */; };
 		C3EC4A132124AAC70021805C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C3EC4A112124AAC70021805C /* Main.storyboard */; };
@@ -41,6 +44,9 @@
 /* Begin PBXFileReference section */
 		C346C46F2126666200F315F7 /* PopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupViewController.swift; sourceTree = "<group>"; };
 		C346C47121266A2C00F315F7 /* ExcerciseTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExcerciseTableViewCell.swift; sourceTree = "<group>"; };
+		C346C47321267B3700F315F7 /* Excercise.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Excercise.swift; sourceTree = "<group>"; };
+		C346C47521267BF300F315F7 /* ExcerciseTableViewController */ = {isa = PBXFileReference; lastKnownFileType = text; path = ExcerciseTableViewController; sourceTree = "<group>"; };
+		C346C4772126B48300F315F7 /* ExcerciseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExcerciseViewController.swift; sourceTree = "<group>"; };
 		C3EC4A0A2124AAC70021805C /* Fit-Tracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Fit-Tracker.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C3EC4A0D2124AAC70021805C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C3EC4A0F2124AAC70021805C /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -84,10 +90,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		C346C4792126B84500F315F7 /* Legacy  */ = {
+			isa = PBXGroup;
+			children = (
+				C346C47521267BF300F315F7 /* ExcerciseTableViewController */,
+				C346C47121266A2C00F315F7 /* ExcerciseTableViewCell.swift */,
+				C346C4772126B48300F315F7 /* ExcerciseViewController.swift */,
+				C346C46F2126666200F315F7 /* PopupViewController.swift */,
+			);
+			path = "Legacy ";
+			sourceTree = "<group>";
+		};
 		C3EC4A012124AAC70021805C = {
 			isa = PBXGroup;
 			children = (
-				C346C46F2126666200F315F7 /* PopupViewController.swift */,
 				C3EC4A0C2124AAC70021805C /* Fit-Tracker */,
 				C3EC4A212124AAC80021805C /* Fit-TrackerTests */,
 				C3EC4A2C2124AAC80021805C /* Fit-TrackerUITests */,
@@ -108,10 +124,11 @@
 		C3EC4A0C2124AAC70021805C /* Fit-Tracker */ = {
 			isa = PBXGroup;
 			children = (
+				C346C4792126B84500F315F7 /* Legacy  */,
 				C3EC4A0D2124AAC70021805C /* AppDelegate.swift */,
 				C3EC4A0F2124AAC70021805C /* ViewController.swift */,
 				C3EC4A112124AAC70021805C /* Main.storyboard */,
-				C346C47121266A2C00F315F7 /* ExcerciseTableViewCell.swift */,
+				C346C47321267B3700F315F7 /* Excercise.swift */,
 				C3EC4A3F2124B0F40021805C /* SettingsViewController.swift */,
 				C3EC4A3B2124ADDA0021805C /* WorkoutViewController.swift */,
 				C3EC4A3D2124ADF80021805C /* GraphsViewController.swift */,
@@ -275,7 +292,10 @@
 				C3EC4A3E2124ADF80021805C /* GraphsViewController.swift in Sources */,
 				C346C47221266A2C00F315F7 /* ExcerciseTableViewCell.swift in Sources */,
 				C3EC4A102124AAC70021805C /* ViewController.swift in Sources */,
+				C346C4782126B48300F315F7 /* ExcerciseViewController.swift in Sources */,
+				C346C47621267BF300F315F7 /* ExcerciseTableViewController in Sources */,
 				C3EC4A402124B0F40021805C /* SettingsViewController.swift in Sources */,
+				C346C47421267B3700F315F7 /* Excercise.swift in Sources */,
 				C3EC4A0E2124AAC70021805C /* AppDelegate.swift in Sources */,
 				C346C4702126666200F315F7 /* PopupViewController.swift in Sources */,
 			);

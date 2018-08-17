@@ -127,9 +127,14 @@
                                 <color key="backgroundColor" red="0.91764705882352937" green="0.94117647058823528" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <state key="normal" title="Add Excercise"/>
                                 <connections>
-                                    <segue destination="oer-BR-1QL" kind="presentation" modalPresentationStyle="overCurrentContext" id="1YK-3f-KRX"/>
+                                    <segue destination="n8S-Xw-fGw" kind="show" id="1Wa-OX-hcr"/>
                                 </connections>
                             </button>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="QKs-wv-wlp">
+                                <rect key="frame" x="0.0" y="269" width="375" height="349"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="xmB-ie-9PD"/>
@@ -140,67 +145,26 @@
             <point key="canvasLocation" x="2088.8000000000002" y="-282.00899550224892"/>
         </scene>
         <!--View Controller-->
-        <scene sceneID="1Cj-LT-pQL">
+        <scene sceneID="cO0-yp-lRN">
             <objects>
-                <viewController id="oer-BR-1QL" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="36k-h1-yZa">
+                <viewController id="n8S-Xw-fGw" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="O2h-gR-6X9">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="PpK-BD-9BJ">
-                                <rect key="frame" x="47" y="152" width="292" height="306"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="GUN-U2-waW">
+                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ExcerciseTableViewCell" id="SG7-J5-Qjh" customClass="ExcerciseTableViewCell" customModule="Fit_Tracker" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="292" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="SG7-J5-Qjh" id="qOf-UN-7zB">
-                                            <rect key="frame" x="0.0" y="0.0" width="292" height="43.5"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="r26-lS-tkc">
-                                                    <rect key="frame" x="15" y="11" width="277" height="21"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                        </tableViewCellContentView>
-                                        <connections>
-                                            <outlet property="nameLabel" destination="r26-lS-tkc" id="1qy-2L-Tey"/>
-                                        </connections>
-                                    </tableViewCell>
-                                </prototypes>
                             </tableView>
                         </subviews>
-                        <color key="backgroundColor" red="0.43529411759999997" green="0.4431372549" blue="0.47450980390000003" alpha="0.16494278169014084" colorSpace="custom" customColorSpace="sRGB"/>
-                        <viewLayoutGuide key="safeArea" id="P3f-4T-Qte"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="ArY-oM-opO"/>
                     </view>
-                    <connections>
-                        <outlet property="searchDisplayController" destination="6Qs-vo-4gB" id="UVO-Cs-djm"/>
-                    </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Um8-L4-m6q" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <searchDisplayController id="gX2-MN-Txw">
-                    <connections>
-                        <outlet property="delegate" destination="oer-BR-1QL" id="mW8-7W-nXu"/>
-                        <outlet property="searchContentsController" destination="oer-BR-1QL" id="I89-Tz-Jqv"/>
-                        <outlet property="searchResultsDataSource" destination="oer-BR-1QL" id="4FD-9G-uIg"/>
-                        <outlet property="searchResultsDelegate" destination="oer-BR-1QL" id="L3N-FO-qhB"/>
-                    </connections>
-                </searchDisplayController>
-                <searchDisplayController id="6Qs-vo-4gB">
-                    <connections>
-                        <outlet property="delegate" destination="oer-BR-1QL" id="FC9-PQ-Qxc"/>
-                        <outlet property="searchContentsController" destination="oer-BR-1QL" id="JHr-rL-mcm"/>
-                        <outlet property="searchResultsDataSource" destination="oer-BR-1QL" id="Cwe-zC-f1l"/>
-                        <outlet property="searchResultsDelegate" destination="oer-BR-1QL" id="zNE-Ye-EFS"/>
-                    </connections>
-                </searchDisplayController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="p43-Xr-pKJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2927.1999999999998" y="-189.3553223388306"/>
+            <point key="canvasLocation" x="2796" y="-282.00899550224892"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="LOY-L3-NYK">
