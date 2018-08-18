@@ -49,7 +49,18 @@ class RoutineViewController: UIViewController, UITableViewDelegate, UITableViewD
         
     }
     @objc private func save() {
+        if(self.routineNameField.text == "" || self.routineNameField.text == nil){
+            let alert = UIAlertController(title:"Error", message: "Enter a name for your routine!", preferredStyle: UIAlertControllerStyle.alert)
+            alert.addAction(UIAlertAction(title: "Try Again", style: UIAlertActionStyle.default,handler: nil))
+            
+            
+            self.present(alert, animated: true, completion: nil)
+
+        }
+        else
+        {
         let routine = Routine(name:routineNameField.text!, exercises:selectedExercises)
+        
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         // you need to cast this next line to the type of VC.
         let vc = storyboard.instantiateViewController(withIdentifier: "WorkoutViewController") as! WorkoutViewController // or whatever it is
@@ -57,6 +68,7 @@ class RoutineViewController: UIViewController, UITableViewDelegate, UITableViewD
         vc.routines.append(routine)
         
         self.navigationController?.pushViewController(vc, animated: true)
+        }
         // _ = navigationController?.popViewController(animated: true)
     }
   private  func loadExercises() {
