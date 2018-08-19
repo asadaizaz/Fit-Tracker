@@ -16,8 +16,11 @@ class ExerciseViewController: UIViewController, UITableViewDelegate, UITableView
     
     @IBOutlet weak var tableView: UITableView!
     
+    //All exercises with approprite ones checkmarked
     var exercises = [Exercise]()
-
+    
+    
+    
     private  func setupBarButtons() {
         let saveButton = UIBarButtonItem(title: "Save", style: .plain, target: self, action: #selector(self.save))
         self.navigationItem.rightBarButtonItem = saveButton
@@ -28,7 +31,17 @@ class ExerciseViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     
-   
+    private func getOnlySelectedExercises() -> [Exercise]{
+        var onlySelectedExercises = [Exercise]()
+        for e in exercises {
+            if (e.isSelected){
+                onlySelectedExercises.append(e)
+            }
+        }
+        
+        return onlySelectedExercises
+        
+    }
     @objc private func save() {
         print("saved!")
         
@@ -62,13 +75,7 @@ class ExerciseViewController: UIViewController, UITableViewDelegate, UITableView
     
     }
     
-   
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         

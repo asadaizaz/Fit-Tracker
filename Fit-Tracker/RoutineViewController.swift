@@ -177,7 +177,7 @@ class RoutineViewController: UIViewController, UITableViewDelegate, UITableViewD
         if (segue.identifier=="GoToExercise"){
             print("Going")
             let destVC = segue.destination as! ExerciseViewController
-            destVC.exercises = allExcercises
+            destVC.exercises = returnUpdatedExercises()
             
         }
     }
