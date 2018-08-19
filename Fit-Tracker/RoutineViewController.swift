@@ -14,123 +14,40 @@ class CustomCell2 : UITableViewCell {
     
 }
 class RoutineViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
-
+    
+    //MARK: Properties
     @IBOutlet weak var routineNameField: UITextField!
-
-    
-    @IBAction func addExerciseButton(_ sender: UIButton) {
-        //performSegue(withIdentifier: "GoToExercise", sender: self)
-     
-    }
-    
-    
     @IBOutlet weak var exerciseTable: UITableView!
     
-    var routineName = ""
-    //List of all exercises
-    var exercises = [Exercise]()
-    //List of selected exercises
-    private var selectedExercises = [Exercise] ()
+    //MARK: Actions
+    @IBAction func addExerciseButton(_ sender: UIButton) {
+        //performSegue(withIdentifier: "GoToExercise", sender: self)
+        
+    }
     
-   //If true then it means that we are editing a routine
+    
+    //MARK: VARIABLES
+    
+    //Stores the routine name that we send from WorkOutView, need to use this as textField reloads when view reloads
+    var routineName = ""
+    //List of only selected exercises sent from WorkOutView
+    var exercises = [Exercise]()
+    //All default exercises, not selected
+    private var allExcercises = [Exercise]()
+    //If true then it means that we are editing a routine
     var editMode = false
     
-    //Refreshes the selected exercises and the routineName
-    private func refreshSelectedExercises() {
-        
-        selectedExercises.removeAll()
-        for e in exercises {
-            if(e.isSelected) {
-                selectedExercises.append(e)
-            
-            }
-        }
-    }
+    //MARK: FUNCTIONS
     
-    private  func setupBarButtons() {
-        let saveButton = UIBarButtonItem(title: "Save", style: .plain, target: self, action: #selector(self.save))
-        self.navigationItem.rightBarButtonItem = saveButton
-        self.navigationItem.hidesBackButton = true
-        
-    }
-        @objc private func save() {
-            if(self.routineNameField.text == "" || self.routineNameField.text == nil){
-                let alert = UIAlertController(title:"Error", message: "Enter a name for your routine!", preferredStyle: UIAlertControllerStyle.alert)
-                alert.addAction(UIAlertAction(title: "Try Again", style: UIAlertActionStyle.default,handler: nil))
-                
-                
-                self.present(alert, animated: true, completion: nil)
-
-            }
-            else
-            {
-                
-        
-            //TODO:
-                //Load routines and append new routine on it --> Save routines
-                refreshSelectedExercises()
-                var loadedRoutines = [Routine]()
-                //Load
-                let userDefaults = UserDefaults.standard
-                let decoded = userDefaults.object(forKey: "routines") as! Data?
-                loadedRoutines = NSKeyedUnarchiver.unarchiveObject(with: decoded!) as! [Routine]
-            
-            
-                    for r in loadedRoutines {
-                        if(r.name == routineNameField.text) {
-                            let alert = UIAlertController(title:"Error", message: "There already exits a routine with this name!", preferredStyle: UIAlertControllerStyle.alert)
-                            alert.addAction(UIAlertAction(title: "Try Again", style: UIAlertActionStyle.default,handler: nil))
-                            
-                            
-                            self.present(alert, animated: true, completion: nil)
-                            break
-                        }
-                    }
-                    let routine = Routine(name:routineNameField.text!, exercises:selectedExercises)
-                    
-                    //Append
-                    loadedRoutines.append(routine)
-                    //Save
-                    let encodedData: Data = NSKeyedArchiver.archivedData(withRootObject: loadedRoutines)
-                    userDefaults.set(encodedData, forKey: "routines")
-                    userDefaults.synchronize()
-                    
-                    
-                    
-                    // _ = navigationController?.popViewController(animated: true)
-                    
-                    //     let storyboard = UIStoryboard(name: "Main", bundle: nil)
-                    // you need to cast this next line to the type of VC.
-                    let vc = storyboard?.instantiateViewController(withIdentifier: "WorkoutViewController") as! WorkoutViewController // or whatever it is
-                    // vc is the controller. Just put the properties in it.
-                    // vc.routines.append(routine)
-                    
-                    self.navigationController?.pushViewController(vc, animated: true)
-                    
-    
-            }
-    }
-                        
-             
-        
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if (segue.identifier=="GoToExercise"){
-            print("Going")
-            let destVC = segue.destination as! ExerciseViewController
-            destVC.exercises = exercises
-           
-        }
-    }
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         exerciseTable.dataSource = self
         exerciseTable.delegate = self
         exerciseTable.tableFooterView = UIView()
-        if exercises.count == 0 {
-        loadExercises()
-        }
-        refreshSelectedExercises()
+        
+        //If no exercises, then populate with default
+        
         setupBarButtons()
         
         routineNameField.text = routineName
@@ -140,6 +57,132 @@ class RoutineViewController: UIViewController, UITableViewDelegate, UITableViewD
         }
     }
 
+    //Returns a list of all exercises with the appropriate ones selected
+    private func returnUpdatedExercises() -> [Exercise] {
+        var selectedExercises = [Exercise]()
+        selectedExercises =  loadDefaultExercises(exercises: &selectedExercises)
+        for ea in selectedExercises {
+            for e in exercises {
+                if (e.name == ea.name){
+                    ea.isSelected = true
+                }
+            }
+        }
+        return selectedExercises
+    }
+
+    private func showAlert(title:String, message:String){
+        let alert = UIAlertController(title:title, message: message, preferredStyle: UIAlertControllerStyle.alert)
+        alert.addAction(UIAlertAction(title: "Try Again", style: UIAlertActionStyle.default,handler: nil))
+        
+        
+        self.present(alert, animated: true, completion: nil)
+    }
+    private  func setupBarButtons() {
+        let saveButton = UIBarButtonItem(title: "Save", style: .plain, target: self, action: #selector(self.save))
+        self.navigationItem.rightBarButtonItem = saveButton
+        self.navigationItem.hidesBackButton = true
+        
+    }
+    private func getLoadedRoutines() -> [Routine] {
+        var loadedRoutines = [Routine]()
+        
+        //Load
+        let userDefaults = UserDefaults.standard
+        let decoded = userDefaults.object(forKey: "routines") as! Data?
+        loadedRoutines = NSKeyedUnarchiver.unarchiveObject(with: decoded!) as! [Routine]
+        return loadedRoutines
+    }
+    private func saveRoutines(routines: [Routine]) {
+        let userDefaults = UserDefaults.standard
+        let encodedData: Data = NSKeyedArchiver.archivedData(withRootObject: routines)
+        userDefaults.set(encodedData, forKey: "routines")
+        userDefaults.synchronize()
+    }
+    private func isRoutineDuplicate(routineName: String) -> Bool{
+        let loadedRoutines = [Routine]()
+        for r in loadedRoutines {
+            if (r.name == routineName) {
+                return true
+            }
+        }
+        return false
+    }
+    private func replaceRoutine(routineList: inout[Routine]) -> [Routine] {
+        for (index, r) in routineList.enumerated() {
+            if (r.name == routineNameField.text) {
+                routineList.remove(at: index)
+                
+                let routine = Routine(name:routineNameField.text!, exercises:exercises)
+                //Append
+                routineList.append(routine)
+                return routineList
+            }
+        }
+        return routineList
+    }
+    @objc private func save() {
+        
+        if(self.routineNameField.text == "" || self.routineNameField.text == nil){
+            
+            showAlert(title: "Error", message: "Enter a name for your routine!")
+        }
+        else
+        {
+            var loadedRoutines = [Routine]()
+            
+            loadedRoutines = getLoadedRoutines()
+            
+            if(!editMode){
+                
+                if(isRoutineDuplicate(routineName: routineNameField.text!)){
+                    showAlert(title: "Error", message: "There already exists a routine with this name")
+                }
+                //If routine is not a duplicate and not in editmode
+                
+                let routine = Routine(name:routineNameField.text!, exercises:exercises)
+                
+                //Append
+                loadedRoutines.append(routine)
+                //Save
+                saveRoutines(routines: loadedRoutines)
+                
+                //Go to workoutview
+                let vc = storyboard?.instantiateViewController(withIdentifier: "WorkoutViewController") as!WorkoutViewController
+                
+                self.navigationController?.pushViewController(vc, animated: true)
+                
+            }
+            //If in editmode
+            else{
+                if(!isRoutineDuplicate(routineName: routineNameField.text!)){
+                    fatalError("edit mode failed!:(")
+                }
+                //replace routine in loaded routine
+                loadedRoutines = replaceRoutine(routineList: &loadedRoutines)
+                saveRoutines(routines: loadedRoutines)
+            }
+    
+                let vc = storyboard?.instantiateViewController(withIdentifier: "WorkoutViewController") as! WorkoutViewController
+                
+                self.navigationController?.pushViewController(vc, animated: true)
+                
+            }
+        
+    }
+    
+    
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if (segue.identifier=="GoToExercise"){
+            print("Going")
+            let destVC = segue.destination as! ExerciseViewController
+            destVC.exercises = allExcercises
+            
+        }
+    }
+    
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -149,13 +192,13 @@ class RoutineViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         let cell:CustomCell2 = self.exerciseTable.dequeueReusableCell(withIdentifier: "customCell2") as! CustomCell2
         
-        cell.nameLabel?.text = self.selectedExercises[indexPath.row].name
-       
+        cell.nameLabel?.text = self.exercises[indexPath.row].name
+        
         return cell
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-       return selectedExercises.count
+        return exercises.count
         
     }
     
@@ -166,7 +209,7 @@ class RoutineViewController: UIViewController, UITableViewDelegate, UITableViewD
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
     }
-    private  func loadExercises() {
+    private  func loadDefaultExercises(exercises:inout[Exercise]) -> [Exercise] {
         let e1 = Exercise(name: "Deadlift")
         let e2 = Exercise(name: "Bench Press")
         let e3 = Exercise(name: "Overhead press")
@@ -185,5 +228,7 @@ class RoutineViewController: UIViewController, UITableViewDelegate, UITableViewD
         let e16 = Exercise(name: "Squat")
         
         exercises += [e1, e2, e3, e4, e5, e6, e7, e8, e9, e10, e11, e12, e13, e14, e15, e16]
+        return exercises
     }
+
 }

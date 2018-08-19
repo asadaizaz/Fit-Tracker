@@ -15,20 +15,27 @@ class CustomCell3: UITableViewCell{
     @IBOutlet weak var routineTitle: UILabel!
   
 }
+
+
+
+
 class WorkoutViewController: UIViewController, UITableViewDelegate, UITableViewDataSource{
     //MARK: Properties
-
+    @IBOutlet weak var tableView: UITableView!
     //MARK: ACTIONS
     @IBAction func createRoutineButton(_ sender: UIButton) {
         saveRoutines()
     }
     
     @IBAction func startWorkoutRoutine(_ sender: Any) {
+        resetDefaults()
+        tableView.reloadData()
     }
     
-    @IBOutlet weak var tableView: UITableView!
+    //MARK: VARIABLES
     var routines = [Routine]()
 
+    //MARK: Private functions
     private func saveRoutines() {
         let userDefaults = UserDefaults.standard
         let encodedData: Data = NSKeyedArchiver.archivedData(withRootObject: routines)
@@ -44,12 +51,10 @@ class WorkoutViewController: UIViewController, UITableViewDelegate, UITableViewD
             let decoded = userDefaults.object(forKey: "routines") as! Data?
             routines = NSKeyedUnarchiver.unarchiveObject(with: decoded!) as! [Routine]
             
-            print("############################################# THIS IS THE COUNT : ")
-            print(routines.count)
         }
         
     }
-    func resetDefaults() {
+   private func resetDefaults() {
         let defaults = UserDefaults.standard
         let dictionary = defaults.dictionaryRepresentation()
         dictionary.keys.forEach { key in
@@ -57,24 +62,23 @@ class WorkoutViewController: UIViewController, UITableViewDelegate, UITableViewD
         }
     }
 
+    
+    //MARK: Functions
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-       
         tableView.delegate = self
         tableView.dataSource = self
         tableView.tableFooterView = UIView()
-     //  resetDefaults()
+        
+        
+       //resetDefaults()
         loadRoutines()
         
     }
-    
+    //Use this function to send any data to RoutineView
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if (segue.identifier == "toRoutineViewController") {
             print("Moving to routineView")
-            
-    
-
         }
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -99,9 +103,8 @@ class WorkoutViewController: UIViewController, UITableViewDelegate, UITableViewD
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         
-        // _ = navigationController?.popViewController(animated: true)
-        
-             let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        //Opens up the clicked on routine in RoutineView
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let vc = storyboard.instantiateViewController(withIdentifier: "RoutineViewController") as! RoutineViewController //
         let routine = routines[indexPath.row]
         vc.exercises = routine.exercises
