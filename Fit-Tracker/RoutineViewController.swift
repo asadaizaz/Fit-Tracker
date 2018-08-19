@@ -26,6 +26,7 @@ class RoutineViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     @IBOutlet weak var exerciseTable: UITableView!
     
+    var routineName = ""
     //List of all exercises
     var exercises = [Exercise]()
     //List of selected exercises
@@ -52,49 +53,65 @@ class RoutineViewController: UIViewController, UITableViewDelegate, UITableViewD
         self.navigationItem.hidesBackButton = true
         
     }
-    @objc private func save() {
-        if(self.routineNameField.text == "" || self.routineNameField.text == nil){
-            let alert = UIAlertController(title:"Error", message: "Enter a name for your routine!", preferredStyle: UIAlertControllerStyle.alert)
-            alert.addAction(UIAlertAction(title: "Try Again", style: UIAlertActionStyle.default,handler: nil))
-            
-            
-            self.present(alert, animated: true, completion: nil)
+        @objc private func save() {
+            if(self.routineNameField.text == "" || self.routineNameField.text == nil){
+                let alert = UIAlertController(title:"Error", message: "Enter a name for your routine!", preferredStyle: UIAlertControllerStyle.alert)
+                alert.addAction(UIAlertAction(title: "Try Again", style: UIAlertActionStyle.default,handler: nil))
+                
+                
+                self.present(alert, animated: true, completion: nil)
 
-        }
-        else
-        {
-        //TODO:
-            //Load routines and append new routine on it --> Save routines
-            refreshSelectedExercises()
-          
-        let routine = Routine(name:routineNameField.text!, exercises:selectedExercises)
-            var loadedRoutines = [Routine]()
-            //Load
-            let userDefaults = UserDefaults.standard
-            let decoded = userDefaults.object(forKey: "routines") as! Data?
-            loadedRoutines = NSKeyedUnarchiver.unarchiveObject(with: decoded!) as! [Routine]
-            
-            //Append
-            loadedRoutines.append(routine)
-            //Save
-            let encodedData: Data = NSKeyedArchiver.archivedData(withRootObject: loadedRoutines)
-            userDefaults.set(encodedData, forKey: "routines")
-            userDefaults.synchronize()
-           
-            
-            
-            // _ = navigationController?.popViewController(animated: true)
-
-   //     let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        // you need to cast this next line to the type of VC.
-            let vc = storyboard?.instantiateViewController(withIdentifier: "WorkoutViewController") as! WorkoutViewController // or whatever it is
-        // vc is the controller. Just put the properties in it.
-       // vc.routines.append(routine)
+            }
+            else
+            {
+                
         
-        self.navigationController?.pushViewController(vc, animated: true)
-        }
+            //TODO:
+                //Load routines and append new routine on it --> Save routines
+                refreshSelectedExercises()
+                var loadedRoutines = [Routine]()
+                //Load
+                let userDefaults = UserDefaults.standard
+                let decoded = userDefaults.object(forKey: "routines") as! Data?
+                loadedRoutines = NSKeyedUnarchiver.unarchiveObject(with: decoded!) as! [Routine]
+            
+            
+                    for r in loadedRoutines {
+                        if(r.name == routineNameField.text) {
+                            let alert = UIAlertController(title:"Error", message: "There already exits a routine with this name!", preferredStyle: UIAlertControllerStyle.alert)
+                            alert.addAction(UIAlertAction(title: "Try Again", style: UIAlertActionStyle.default,handler: nil))
+                            
+                            
+                            self.present(alert, animated: true, completion: nil)
+                            break
+                        }
+                    }
+                    let routine = Routine(name:routineNameField.text!, exercises:selectedExercises)
+                    
+                    //Append
+                    loadedRoutines.append(routine)
+                    //Save
+                    let encodedData: Data = NSKeyedArchiver.archivedData(withRootObject: loadedRoutines)
+                    userDefaults.set(encodedData, forKey: "routines")
+                    userDefaults.synchronize()
+                    
+                    
+                    
+                    // _ = navigationController?.popViewController(animated: true)
+                    
+                    //     let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                    // you need to cast this next line to the type of VC.
+                    let vc = storyboard?.instantiateViewController(withIdentifier: "WorkoutViewController") as! WorkoutViewController // or whatever it is
+                    // vc is the controller. Just put the properties in it.
+                    // vc.routines.append(routine)
+                    
+                    self.navigationController?.pushViewController(vc, animated: true)
+                    
+    
+            }
     }
-
+                        
+             
         
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if (segue.identifier=="GoToExercise"){
@@ -115,6 +132,12 @@ class RoutineViewController: UIViewController, UITableViewDelegate, UITableViewD
         }
         refreshSelectedExercises()
         setupBarButtons()
+        
+        routineNameField.text = routineName
+        
+        if(editMode){
+            self.title = "Edit Mode"
+        }
     }
 
     override func didReceiveMemoryWarning() {

@@ -103,7 +103,10 @@ class WorkoutViewController: UIViewController, UITableViewDelegate, UITableViewD
         
              let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let vc = storyboard.instantiateViewController(withIdentifier: "RoutineViewController") as! RoutineViewController //
-       vc.editMode = true
+        let routine = routines[indexPath.row]
+        vc.exercises = routine.exercises
+        vc.routineName = routine.name
+        vc.editMode  = true
         self.navigationController?.pushViewController(vc, animated: true)
     }
 
