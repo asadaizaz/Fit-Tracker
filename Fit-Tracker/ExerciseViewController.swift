@@ -18,7 +18,6 @@ class ExerciseViewController: UIViewController, UITableViewDelegate, UITableView
     
     var exercises = [Exercise]()
 
-
     private  func setupBarButtons() {
         let saveButton = UIBarButtonItem(title: "Save", style: .plain, target: self, action: #selector(self.save))
         self.navigationItem.rightBarButtonItem = saveButton

@@ -16,10 +16,11 @@ class CustomCell2 : UITableViewCell {
 class RoutineViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     @IBOutlet weak var routineNameField: UITextField!
-    
+
     
     @IBAction func addExerciseButton(_ sender: UIButton) {
         //performSegue(withIdentifier: "GoToExercise", sender: self)
+     
     }
     
     
@@ -30,14 +31,17 @@ class RoutineViewController: UIViewController, UITableViewDelegate, UITableViewD
     //List of selected exercises
     private var selectedExercises = [Exercise] ()
     
-   
+   //If true then it means that we are editing a routine
+    var editMode = false
     
-    //Refreshes the selected exercises
+    //Refreshes the selected exercises and the routineName
     private func refreshSelectedExercises() {
+        
         selectedExercises.removeAll()
         for e in exercises {
             if(e.isSelected) {
                 selectedExercises.append(e)
+            
             }
         }
     }
@@ -59,44 +63,45 @@ class RoutineViewController: UIViewController, UITableViewDelegate, UITableViewD
         }
         else
         {
+        //TODO:
+            //Load routines and append new routine on it --> Save routines
+            refreshSelectedExercises()
+          
         let routine = Routine(name:routineNameField.text!, exercises:selectedExercises)
-        
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            var loadedRoutines = [Routine]()
+            //Load
+            let userDefaults = UserDefaults.standard
+            let decoded = userDefaults.object(forKey: "routines") as! Data?
+            loadedRoutines = NSKeyedUnarchiver.unarchiveObject(with: decoded!) as! [Routine]
+            
+            //Append
+            loadedRoutines.append(routine)
+            //Save
+            let encodedData: Data = NSKeyedArchiver.archivedData(withRootObject: loadedRoutines)
+            userDefaults.set(encodedData, forKey: "routines")
+            userDefaults.synchronize()
+           
+            
+            
+            // _ = navigationController?.popViewController(animated: true)
+
+   //     let storyboard = UIStoryboard(name: "Main", bundle: nil)
         // you need to cast this next line to the type of VC.
-        let vc = storyboard.instantiateViewController(withIdentifier: "WorkoutViewController") as! WorkoutViewController // or whatever it is
+            let vc = storyboard?.instantiateViewController(withIdentifier: "WorkoutViewController") as! WorkoutViewController // or whatever it is
         // vc is the controller. Just put the properties in it.
-        vc.routines.append(routine)
+       // vc.routines.append(routine)
         
         self.navigationController?.pushViewController(vc, animated: true)
         }
-        // _ = navigationController?.popViewController(animated: true)
     }
-  private  func loadExercises() {
-        let e1 = Exercise(name: "Deadlift")
-        let e2 = Exercise(name: "Bench Press")
-        let e3 = Exercise(name: "Overhead press")
-        let e4 = Exercise(name: "Rope Pushdown")
-        let e5 = Exercise(name: "Bicep Curl")
-        let e6 = Exercise(name: "Lat Pulldown")
-        let e7 = Exercise(name: "Face Pull")
-        let e8 = Exercise(name: "Cable Row")
-        let e9 = Exercise(name: "Hammer Curl")
-        let e10 = Exercise(name: "Plank")
-        let e11 = Exercise(name: "Sit-Up")
-        let e12 = Exercise(name: "Crunches")
-        let e13 = Exercise(name: "Lateral Raise")
-        let e14 = Exercise(name: "Incline Bench Press")
-        let e15 = Exercise(name: "Shrug")
-        let e16 = Exercise(name: "Squat")
-        
-        exercises += [e1, e2, e3, e4, e5, e6, e7, e8, e9, e10, e11, e12, e13, e14, e15, e16]
-    }
+
         
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if (segue.identifier=="GoToExercise"){
             print("Going")
             let destVC = segue.destination as! ExerciseViewController
             destVC.exercises = exercises
+           
         }
     }
     override func viewDidLoad() {
@@ -138,5 +143,24 @@ class RoutineViewController: UIViewController, UITableViewDelegate, UITableViewD
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
     }
-    
+    private  func loadExercises() {
+        let e1 = Exercise(name: "Deadlift")
+        let e2 = Exercise(name: "Bench Press")
+        let e3 = Exercise(name: "Overhead press")
+        let e4 = Exercise(name: "Rope Pushdown")
+        let e5 = Exercise(name: "Bicep Curl")
+        let e6 = Exercise(name: "Lat Pulldown")
+        let e7 = Exercise(name: "Face Pull")
+        let e8 = Exercise(name: "Cable Row")
+        let e9 = Exercise(name: "Hammer Curl")
+        let e10 = Exercise(name: "Plank")
+        let e11 = Exercise(name: "Sit-Up")
+        let e12 = Exercise(name: "Crunches")
+        let e13 = Exercise(name: "Lateral Raise")
+        let e14 = Exercise(name: "Incline Bench Press")
+        let e15 = Exercise(name: "Shrug")
+        let e16 = Exercise(name: "Squat")
+        
+        exercises += [e1, e2, e3, e4, e5, e6, e7, e8, e9, e10, e11, e12, e13, e14, e15, e16]
+    }
 }

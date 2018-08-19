@@ -9,15 +9,53 @@
 import UIKit
 class CustomCell3: UITableViewCell{
     
-    @IBOutlet weak var exerciseName: UILabel!
+
+    
+    
     @IBOutlet weak var routineTitle: UILabel!
+  
 }
 class WorkoutViewController: UIViewController, UITableViewDelegate, UITableViewDataSource{
     //MARK: Properties
 
+    //MARK: ACTIONS
+    @IBAction func createRoutineButton(_ sender: UIButton) {
+        saveRoutines()
+    }
+    
+    @IBAction func startWorkoutRoutine(_ sender: Any) {
+    }
+    
     @IBOutlet weak var tableView: UITableView!
     var routines = [Routine]()
 
+    private func saveRoutines() {
+        let userDefaults = UserDefaults.standard
+        let encodedData: Data = NSKeyedArchiver.archivedData(withRootObject: routines)
+        userDefaults.set(encodedData, forKey: "routines")
+        userDefaults.synchronize()
+        
+    }
+    
+    private func loadRoutines() {
+        let userDefaults = UserDefaults.standard
+        if (userDefaults.object(forKey: "routines") != nil)
+        {
+            let decoded = userDefaults.object(forKey: "routines") as! Data?
+            routines = NSKeyedUnarchiver.unarchiveObject(with: decoded!) as! [Routine]
+            
+            print("############################################# THIS IS THE COUNT : ")
+            print(routines.count)
+        }
+        
+    }
+    func resetDefaults() {
+        let defaults = UserDefaults.standard
+        let dictionary = defaults.dictionaryRepresentation()
+        dictionary.keys.forEach { key in
+            defaults.removeObject(forKey: key)
+        }
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,14 +64,24 @@ class WorkoutViewController: UIViewController, UITableViewDelegate, UITableViewD
         tableView.delegate = self
         tableView.dataSource = self
         tableView.tableFooterView = UIView()
-        tableView.rowHeight = UITableViewAutomaticDimension
-        tableView.estimatedRowHeight = 500
+     //  resetDefaults()
+        loadRoutines()
+        
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if (segue.identifier == "toRoutineViewController") {
+            print("Moving to routineView")
+            
+    
+
+        }
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell:CustomCell3 = self.tableView.dequeueReusableCell(withIdentifier: "CustomCell3") as! CustomCell3
         cell.routineTitle?.text = routines[indexPath.row].name
-        cell.exerciseName?.text = "TEST"
+       
         
         return cell
         
@@ -50,6 +98,13 @@ class WorkoutViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        
+        // _ = navigationController?.popViewController(animated: true)
+        
+             let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let vc = storyboard.instantiateViewController(withIdentifier: "RoutineViewController") as! RoutineViewController //
+       vc.editMode = true
+        self.navigationController?.pushViewController(vc, animated: true)
     }
 
 }
