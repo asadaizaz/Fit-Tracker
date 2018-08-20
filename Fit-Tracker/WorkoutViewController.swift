@@ -28,8 +28,7 @@ class WorkoutViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     @IBAction func startWorkoutRoutine(_ sender: Any) {
-        resetDefaults()
-        tableView.reloadData()
+        saveRoutines()
     }
     
     //MARK: VARIABLES

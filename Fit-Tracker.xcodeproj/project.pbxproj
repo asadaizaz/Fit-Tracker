@@ -11,6 +11,8 @@
 		C346EF6E21274E0B0002C838 /* Exercise.swift in Sources */ = {isa = PBXBuildFile; fileRef = C346EF6D21274E0B0002C838 /* Exercise.swift */; };
 		C346EF7021275B360002C838 /* RoutineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C346EF6F21275B360002C838 /* RoutineViewController.swift */; };
 		C346EF72212786840002C838 /* Routine.swift in Sources */ = {isa = PBXBuildFile; fileRef = C346EF71212786840002C838 /* Routine.swift */; };
+		C37B0230212A89A700787572 /* ChooseRoutineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C37B022F212A89A700787572 /* ChooseRoutineViewController.swift */; };
+		C37B0234212A900A00787572 /* LiveWorkoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C37B0233212A900A00787572 /* LiveWorkoutViewController.swift */; };
 		C3EC4A0E2124AAC70021805C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3EC4A0D2124AAC70021805C /* AppDelegate.swift */; };
 		C3EC4A102124AAC70021805C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3EC4A0F2124AAC70021805C /* ViewController.swift */; };
 		C3EC4A132124AAC70021805C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C3EC4A112124AAC70021805C /* Main.storyboard */; };
@@ -45,6 +47,8 @@
 		C346EF6D21274E0B0002C838 /* Exercise.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Exercise.swift; sourceTree = "<group>"; };
 		C346EF6F21275B360002C838 /* RoutineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineViewController.swift; sourceTree = "<group>"; };
 		C346EF71212786840002C838 /* Routine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Routine.swift; sourceTree = "<group>"; };
+		C37B022F212A89A700787572 /* ChooseRoutineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseRoutineViewController.swift; sourceTree = "<group>"; };
+		C37B0233212A900A00787572 /* LiveWorkoutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveWorkoutViewController.swift; sourceTree = "<group>"; };
 		C3EC4A0A2124AAC70021805C /* Fit-Tracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Fit-Tracker.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C3EC4A0D2124AAC70021805C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C3EC4A0F2124AAC70021805C /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -114,8 +118,10 @@
 				C3EC4A0D2124AAC70021805C /* AppDelegate.swift */,
 				C3EC4A0F2124AAC70021805C /* ViewController.swift */,
 				C3EC4A112124AAC70021805C /* Main.storyboard */,
-				C346EF6F21275B360002C838 /* RoutineViewController.swift */,
+				C37B0233212A900A00787572 /* LiveWorkoutViewController.swift */,
+				C37B022F212A89A700787572 /* ChooseRoutineViewController.swift */,
 				C3EC4A3B2124ADDA0021805C /* WorkoutViewController.swift */,
+				C346EF6F21275B360002C838 /* RoutineViewController.swift */,
 				C346EF6B21274B410002C838 /* ExerciseViewController.swift */,
 				C3EC4A3F2124B0F40021805C /* SettingsViewController.swift */,
 				C3EC4A3D2124ADF80021805C /* GraphsViewController.swift */,
@@ -277,6 +283,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C37B0230212A89A700787572 /* ChooseRoutineViewController.swift in Sources */,
 				C3EC4A3C2124ADDA0021805C /* WorkoutViewController.swift in Sources */,
 				C3EC4A3E2124ADF80021805C /* GraphsViewController.swift in Sources */,
 				C3EC4A102124AAC70021805C /* ViewController.swift in Sources */,
@@ -284,6 +291,7 @@
 				C3EC4A402124B0F40021805C /* SettingsViewController.swift in Sources */,
 				C346EF72212786840002C838 /* Routine.swift in Sources */,
 				C346EF6C21274B410002C838 /* ExerciseViewController.swift in Sources */,
+				C37B0234212A900A00787572 /* LiveWorkoutViewController.swift in Sources */,
 				C346EF6E21274E0B0002C838 /* Exercise.swift in Sources */,
 				C3EC4A0E2124AAC70021805C /* AppDelegate.swift in Sources */,
 			);

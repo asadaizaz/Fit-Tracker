@@ -51,7 +51,7 @@ class ExerciseViewController: UIViewController, UITableViewDelegate, UITableView
         // vc is the controller. Just put the properties in it.
         vc.exercises = getOnlySelectedExercises()
         vc.editMode = editMode
-        vc.routineName = self.routineName
+        vc.routineName = routineName
         self.navigationController?.pushViewController(vc, animated: true)
       // _ = navigationController?.popViewController(animated: true)
     }
