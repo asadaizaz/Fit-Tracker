@@ -19,7 +19,7 @@ class ExerciseViewController: UIViewController, UITableViewDelegate, UITableView
     //All exercises with approprite ones checkmarked
     var exercises = [Exercise]()
     
-    
+    var editMode = false
     
     private  func setupBarButtons() {
         let saveButton = UIBarButtonItem(title: "Save", style: .plain, target: self, action: #selector(self.save))
@@ -49,8 +49,8 @@ class ExerciseViewController: UIViewController, UITableViewDelegate, UITableView
         // you need to cast this next line to the type of VC.
         let vc = storyboard.instantiateViewController(withIdentifier: "RoutineViewController") as! RoutineViewController // or whatever it is
         // vc is the controller. Just put the properties in it.
-        vc.exercises = exercises
-        
+        vc.exercises = getOnlySelectedExercises()
+        vc.editMode = editMode
         self.navigationController?.pushViewController(vc, animated: true)
       // _ = navigationController?.popViewController(animated: true)
     }

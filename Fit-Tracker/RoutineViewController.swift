@@ -100,7 +100,8 @@ class RoutineViewController: UIViewController, UITableViewDelegate, UITableViewD
         userDefaults.synchronize()
     }
     private func isRoutineDuplicate(routineName: String) -> Bool{
-        let loadedRoutines = [Routine]()
+        var loadedRoutines = [Routine]()
+        loadedRoutines = getLoadedRoutines()
         for r in loadedRoutines {
             if (r.name == routineName) {
                 return true
@@ -137,7 +138,7 @@ class RoutineViewController: UIViewController, UITableViewDelegate, UITableViewD
                 
                 if(isRoutineDuplicate(routineName: routineNameField.text!)){
                     showAlert(title: "Error", message: "There already exists a routine with this name")
-                }
+                }else{
                 //If routine is not a duplicate and not in editmode
                 
                 let routine = Routine(name:routineNameField.text!, exercises:exercises)
@@ -147,16 +148,13 @@ class RoutineViewController: UIViewController, UITableViewDelegate, UITableViewD
                 //Save
                 saveRoutines(routines: loadedRoutines)
                 
-                //Go to workoutview
-                let vc = storyboard?.instantiateViewController(withIdentifier: "WorkoutViewController") as!WorkoutViewController
                 
-                self.navigationController?.pushViewController(vc, animated: true)
-                
+                }
             }
             //If in editmode
             else{
                 if(!isRoutineDuplicate(routineName: routineNameField.text!)){
-                    fatalError("edit mode failed!:(")
+                   // fatalError("edit mode failed!:(")
                 }
                 //replace routine in loaded routine
                 loadedRoutines = replaceRoutine(routineList: &loadedRoutines)
@@ -164,7 +162,7 @@ class RoutineViewController: UIViewController, UITableViewDelegate, UITableViewD
             }
     
                 let vc = storyboard?.instantiateViewController(withIdentifier: "WorkoutViewController") as! WorkoutViewController
-                
+            
                 self.navigationController?.pushViewController(vc, animated: true)
                 
             }
@@ -178,7 +176,7 @@ class RoutineViewController: UIViewController, UITableViewDelegate, UITableViewD
             print("Going")
             let destVC = segue.destination as! ExerciseViewController
             destVC.exercises = returnUpdatedExercises()
-            
+            destVC.editMode = editMode
         }
     }
     
