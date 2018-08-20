@@ -73,6 +73,8 @@ class WorkoutViewController: UIViewController, UITableViewDelegate, UITableViewD
         
        //resetDefaults()
         loadRoutines()
+        self.navigationController?.viewControllers = [self]
+
         
     }
     //Use this function to send any data to RoutineView
@@ -111,6 +113,33 @@ class WorkoutViewController: UIViewController, UITableViewDelegate, UITableViewD
         vc.routineName = routine.name
         vc.editMode  = true
         self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
+     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if (editingStyle == UITableViewCellEditingStyle.delete) {
+            // handle delete (by removing the data from your array and updating the tableview)
+            
+            removeRoutine(routine: routines[indexPath.row])
+            tableView.deleteRows(at: [indexPath], with: UITableViewRowAnimation.automatic)
+           
+
+            tableView.reloadData()
+            
+        }
+    }
+    
+    func  removeRoutine(routine: Routine) {
+       loadRoutines()
+        for (index, r) in routines.enumerated(){
+            if (r.name == routine.name){
+                routines.remove(at: index)
+            }
+        }
+        saveRoutines()
     }
 
 }

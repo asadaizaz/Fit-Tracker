@@ -56,7 +56,21 @@ class RoutineViewController: UIViewController, UITableViewDelegate, UITableViewD
             self.title = "Edit Mode"
         }
     }
-
+    private func saveTemporaryRoutineName(){
+        let userDefaults = UserDefaults.standard
+        let encodedData: Data = NSKeyedArchiver.archivedData(withRootObject: routineNameField.text)
+        userDefaults.set(encodedData, forKey: "routineName")
+        userDefaults.synchronize()
+    }
+    private func loadTemporaryRoutineName(){
+        let userDefaults = UserDefaults.standard
+        var loadedName = ""
+    if (userDefaults.object(forKey: "routineName") != nil) {
+        let decoded = userDefaults.object(forKey: "routineName") as! Data?
+        loadedName = NSKeyedUnarchiver.unarchiveObject(with: decoded!) as! String
+        routineNameField.text = loadedName
+        }
+    }
     //Returns a list of all exercises with the appropriate ones selected
     private func returnUpdatedExercises() -> [Exercise] {
         var selectedExercises = [Exercise]()
@@ -177,14 +191,12 @@ class RoutineViewController: UIViewController, UITableViewDelegate, UITableViewD
             let destVC = segue.destination as! ExerciseViewController
             destVC.exercises = returnUpdatedExercises()
             destVC.editMode = editMode
+            destVC.routineName = routineNameField.text!
         }
     }
     
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
+
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         

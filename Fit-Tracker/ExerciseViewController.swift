@@ -18,7 +18,7 @@ class ExerciseViewController: UIViewController, UITableViewDelegate, UITableView
     
     //All exercises with approprite ones checkmarked
     var exercises = [Exercise]()
-    
+    var routineName = ""
     var editMode = false
     
     private  func setupBarButtons() {
@@ -30,7 +30,7 @@ class ExerciseViewController: UIViewController, UITableViewDelegate, UITableView
         
     }
     
-    
+   
     private func getOnlySelectedExercises() -> [Exercise]{
         var onlySelectedExercises = [Exercise]()
         for e in exercises {
@@ -51,6 +51,7 @@ class ExerciseViewController: UIViewController, UITableViewDelegate, UITableView
         // vc is the controller. Just put the properties in it.
         vc.exercises = getOnlySelectedExercises()
         vc.editMode = editMode
+        vc.routineName = self.routineName
         self.navigationController?.pushViewController(vc, animated: true)
       // _ = navigationController?.popViewController(animated: true)
     }
