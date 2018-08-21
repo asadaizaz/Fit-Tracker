@@ -40,7 +40,12 @@ class ChooseRoutineViewController: UIViewController, UITableViewDelegate, UITabl
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         
-        
+        //Opens up the clicked on routine in RoutineView
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let vc = storyboard.instantiateViewController(withIdentifier: "LiveWorkoutViewController") as! LiveWorkoutViewController //
+        let routine = loadedRoutines[indexPath.row]
+        vc.routine = routine
+        self.navigationController?.pushViewController(vc, animated: true)
     }
 
     override func viewDidLoad() {
