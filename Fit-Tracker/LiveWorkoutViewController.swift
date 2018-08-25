@@ -89,7 +89,7 @@ class LiveWorkoutViewController: UIViewController, UITableViewDataSource, UITabl
     
     //VARIABLES
     var routine: Routine?
-   
+    var savedRoutines = [Routine] ()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -100,8 +100,25 @@ class LiveWorkoutViewController: UIViewController, UITableViewDataSource, UITabl
         routineNameText.text = routine?.name
         exerciseTableView.rowHeight = UITableViewAutomaticDimension
         exerciseTableView.estimatedRowHeight = 500
+        setupBarButtons()
+        let userDefaults = UserDefaults.standard
+        if (userDefaults.object(forKey: "savedRoutines") != nil)
+        {
+            let decoded = userDefaults.object(forKey: "savedRoutines") as! Data?
+            savedRoutines = NSKeyedUnarchiver.unarchiveObject(with: decoded!) as! [Routine]
+            
+        }
+        for r in savedRoutines {
+            print("In saved routines we have: ", r.name)
+            for e in r.exercises {
+                print("     and these exercises: ", e.name)
+                
+                for s in e.sets {
+                    print( "        and these sets: ", String(s.lbsNumber), "  , ", String(s.repNumber))
+                }
+            }
+        }
         
-        // Do any additional setup after loading the view.
     }
     
 
@@ -180,6 +197,36 @@ class LiveWorkoutViewController: UIViewController, UITableViewDataSource, UITabl
 
         exerciseTableView.endUpdates()
     }
+    private  func setupBarButtons() {
+        let saveButton = UIBarButtonItem(title: "Save", style: .plain, target: self, action: #selector(self.save))
+        self.navigationItem.rightBarButtonItem = saveButton
+        
+    }
+    
+    
+    @objc func save() {
+        let tempRoutine = Routine(name: (self.routine?.name)!, exercises: (self.routine?.exercises)!)
+        
+        for e in tempRoutine.exercises {
+            for (index, s) in e.sets.enumerated() {
+                if (!s.saved) {
+                    e.sets.remove(at: index)
+                }
+            }
+        }
+        //Save in userdefaults
+        savedRoutines.append(tempRoutine)
+        let userDefaults = UserDefaults.standard
+        let encodedData: Data = NSKeyedArchiver.archivedData(withRootObject: savedRoutines)
+        userDefaults.set(encodedData, forKey: "savedRoutines")
+        userDefaults.synchronize()
+        
+     //Return to main screen
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let vc = storyboard.instantiateViewController(withIdentifier: "WorkoutViewController") as! WorkoutViewController //
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
     
 
 }
