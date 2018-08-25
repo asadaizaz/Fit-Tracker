@@ -13,15 +13,19 @@ class Exercise: NSObject, NSCoding {
     
     var name: String
     var isSelected: Bool = false
-    init(name:String, isSelected:Bool = false)
+    var sets = [Set]()
+    init(name:String, isSelected:Bool = false, sets:[Set] = [])
     {
         self.name = name
         self.isSelected = isSelected
+        self.sets = sets
     }
     
     
     func encode(with aCoder: NSCoder) {
         aCoder.encode(name, forKey:"exerciseName")
+        aCoder.encode(sets, forKey: "sets")
+
         aCoder.encode(isSelected, forKey: "isSelected")
     }
     
@@ -30,8 +34,16 @@ class Exercise: NSObject, NSCoding {
         
 
         let isSelected = aDecoder.decodeObject(forKey:"isSelected") as? Bool ?? aDecoder.decodeBool(forKey: "isSelected")
-        self.init(name:name, isSelected:isSelected)
         
+        if (aDecoder.decodeObject(forKey: "sets") != nil ) {
+           let  sets = aDecoder.decodeObject(forKey: "sets") as! [Set]
+            self.init(name:name, isSelected:isSelected, sets: sets)
+
+        }else{
+        
+        self.init(name:name, isSelected:isSelected, sets: [])
         }
+        
+    }
     
 }

@@ -58,7 +58,7 @@ class RoutineViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     private func saveTemporaryRoutineName(){
         let userDefaults = UserDefaults.standard
-        let encodedData: Data = NSKeyedArchiver.archivedData(withRootObject: routineNameField.text)
+        let encodedData: Data = NSKeyedArchiver.archivedData(withRootObject: routineNameField.text!)
         userDefaults.set(encodedData, forKey: "routineName")
         userDefaults.synchronize()
     }

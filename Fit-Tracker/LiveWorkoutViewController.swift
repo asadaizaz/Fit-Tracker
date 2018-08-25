@@ -8,20 +8,77 @@
 
 import UIKit
 
-//TODO: numberofRows should return a variable that addSet should increment. Figure out way to update for each section as this will add rows for every section
-
-
-
 class LiveWorkoutCell: UITableViewCell {
     
+  
   
     @IBOutlet weak var setNumberText: UITextField!
     
     @IBOutlet weak var repNumberText: UITextField!
     @IBOutlet weak var lbsNumberText: UITextField!
-   
+    
+    
+    @IBOutlet weak var checkMarkButton: UIButton!
+    var exercise: Exercise!
+    var indexNumber: Int!
+    var selectedExercises = [Exercise] ()
+    @IBAction func checkMarkButton(_ sender: UIButton) {
+        let generator = UIImpactFeedbackGenerator(style: .heavy)
+        generator.impactOccurred()
+        print("selcted")
+        if (sender.isSelected){
+            if( repNumberText.text?.isEmpty)! {
+                repNumberText.text = "0"
+            }
+            if(lbsNumberText.text?.isEmpty)! {
+                lbsNumberText.text = "0"
+            }
+            let  tempSet = Set(repNumber: Int(repNumberText.text!)!, lbsNumber: Int(lbsNumberText.text!)!, saved:false)
+            exercise.sets[indexNumber] = tempSet
+            sender.isSelected = false
+            print(exercise.name, String(indexNumber))
+            
+        }
+        else if (!sender.isSelected){
+            if( repNumberText.text?.isEmpty)! {
+                repNumberText.text = "0"
+            }
+            if(lbsNumberText.text?.isEmpty)! {
+                lbsNumberText.text = "0"
+            }
+            let  tempSet = Set(repNumber: Int(repNumberText.text!)!, lbsNumber: Int(lbsNumberText.text!)!, saved:true)
+            exercise.sets[indexNumber] = tempSet
+            sender.isSelected = true
+        }
+        
+        
+    }
+    
+   @objc func updateSets() {
+        if( repNumberText.text?.isEmpty)! {
+            repNumberText.text = "0"
+        }
+        if(lbsNumberText.text?.isEmpty)! {
+            lbsNumberText.text = "0"
+        }
+        let prevSaved = exercise.sets[indexNumber].saved
+        let  tempSet = Set(repNumber: Int(repNumberText.text!)!, lbsNumber: Int(lbsNumberText.text!)!, saved: prevSaved)
+        exercise.sets[indexNumber] = tempSet
+    }
+    override func layoutSubviews() {
+         super.layoutSubviews()
+        lbsNumberText.addTarget(self, action: #selector(self.updateSets), for: UIControlEvents.editingDidEnd)
+        repNumberText.addTarget(self, action: #selector(self.updateSets), for: UIControlEvents.editingDidEnd)
+
+        updateSets()
+        
+    }
     
 }
+
+
+
+
 class LiveWorkoutViewController: UIViewController, UITableViewDataSource, UITableViewDelegate{
     
     //MARK: Properties
@@ -29,34 +86,64 @@ class LiveWorkoutViewController: UIViewController, UITableViewDataSource, UITabl
     @IBOutlet weak var routineNameText: UILabel!
     
     @IBOutlet weak var exerciseTableView: UITableView!
-    //MARK: Actions
     
     //VARIABLES
     var routine: Routine?
-    var setNumber = 0
+   
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        initializeSetNumbers()
+
         exerciseTableView.delegate = self
         exerciseTableView.dataSource = self
         routineNameText.text = routine?.name
         exerciseTableView.rowHeight = UITableViewAutomaticDimension
-        exerciseTableView.estimatedRowHeight = 300
+        exerciseTableView.estimatedRowHeight = 500
+        
         // Do any additional setup after loading the view.
+    }
+    
+
+    func initializeSetNumbers(){
+        
+        let set = Set(repNumber: 0,lbsNumber: 0)
+        for e in ((routine?.exercises))! {
+            e.sets.append(set)
+        }
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return (routine?.exercises[section].sets.count)!
         
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell:LiveWorkoutCell = self.exerciseTableView.dequeueReusableCell(withIdentifier: "LiveWorkoutCell") as! LiveWorkoutCell
+        
+        let temp = indexPath.row+1
+        cell.setNumberText.text = String(temp)
+        
+        cell.checkMarkButton.setImage(#imageLiteral(resourceName: "checkmark-Off"), for: UIControlState.normal)
+        cell.checkMarkButton.setImage(#imageLiteral(resourceName: "checkmark-On"), for: UIControlState.selected)
+        
+        let tempExercise = routine?.exercises[indexPath.section]
+        cell.exercise = tempExercise
+        
+       
+        let tempSet =  tempExercise?.sets[indexPath.row]
+        let r: Int = (tempSet?.repNumber)!
+        let l: Int = (tempSet?.lbsNumber)!
+        cell.indexNumber = indexPath.row
+        cell.repNumberText.text = String(r)
+        cell.lbsNumberText.text = String(l)
+        
         return cell
     }
     func numberOfSections(in tableView: UITableView) -> Int {
         return (routine?.exercises.count)!
-    }
+        }
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return routine?.exercises[section].name
     }
@@ -68,16 +155,13 @@ class LiveWorkoutViewController: UIViewController, UITableViewDataSource, UITabl
      func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         let footerView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.frame.width, height: 30))
         let doneButton = UIButton(frame: CGRect(x: 0, y: 0, width: 343, height: 30))
-        // here is what you should add:
         doneButton.center = footerView.center
         
         doneButton.setTitle("Add Set", for: .normal)
         doneButton.setTitleColor(#colorLiteral(red: 0, green: 0.4784313725, blue: 1, alpha: 1), for: .normal)
         doneButton.backgroundColor = UIColor(displayP3Red: 0.9176470588, green: 0.9411764706, blue: 1, alpha: 1)
         doneButton.tag = section
-        
         doneButton.addTarget(self, action: #selector(addSet(sender:)), for: .touchUpInside)
-        
         
         footerView.addSubview(doneButton)
         return footerView
@@ -85,8 +169,15 @@ class LiveWorkoutViewController: UIViewController, UITableViewDataSource, UITabl
     
     @objc func addSet(sender: UIButton!) {
         print("Add set!")
+        print(sender.tag)
+
         exerciseTableView.beginUpdates()
-        exerciseTableView.insertRows(at: [IndexPath(row: 2, section: sender.tag)], with: .automatic)
+        //exerciseTableView.reloadData()
+//        setNumber += 1
+        
+        exerciseTableView.insertRows(at: [IndexPath(row: (routine?.exercises[sender.tag].sets.count)!, section: sender.tag)], with: .automatic)
+        routine?.exercises[sender.tag].sets.append(Set(repNumber: 0, lbsNumber: 0))
+
         exerciseTableView.endUpdates()
     }
     
