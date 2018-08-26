@@ -70,7 +70,6 @@ class LiveWorkoutCell: UITableViewCell {
         lbsNumberText.addTarget(self, action: #selector(self.updateSets), for: UIControlEvents.editingDidEnd)
         repNumberText.addTarget(self, action: #selector(self.updateSets), for: UIControlEvents.editingDidEnd)
 
-        updateSets()
         
     }
     
@@ -89,7 +88,7 @@ class LiveWorkoutViewController: UIViewController, UITableViewDataSource, UITabl
     
     //VARIABLES
     var routine: Routine?
-    var savedRoutines = [Routine] ()
+    var savedRoutines = [SavedRoutine] ()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -102,22 +101,13 @@ class LiveWorkoutViewController: UIViewController, UITableViewDataSource, UITabl
         exerciseTableView.estimatedRowHeight = 500
         setupBarButtons()
         let userDefaults = UserDefaults.standard
-        if (userDefaults.object(forKey: "savedRoutines") != nil)
+        if (userDefaults.object(forKey: "history") != nil)
         {
-            let decoded = userDefaults.object(forKey: "savedRoutines") as! Data?
-            savedRoutines = NSKeyedUnarchiver.unarchiveObject(with: decoded!) as! [Routine]
+            let decoded = userDefaults.object(forKey: "history") as! Data?
+            savedRoutines = NSKeyedUnarchiver.unarchiveObject(with: decoded!) as! [SavedRoutine]
             
         }
-        for r in savedRoutines {
-            print("In saved routines we have: ", r.name)
-            for e in r.exercises {
-                print("     and these exercises: ", e.name)
-                
-                for s in e.sets {
-                    print( "        and these sets: ", String(s.lbsNumber), "  , ", String(s.repNumber))
-                }
-            }
-        }
+      
         
     }
     
@@ -189,8 +179,7 @@ class LiveWorkoutViewController: UIViewController, UITableViewDataSource, UITabl
         print(sender.tag)
 
         exerciseTableView.beginUpdates()
-        //exerciseTableView.reloadData()
-//        setNumber += 1
+  
         
         exerciseTableView.insertRows(at: [IndexPath(row: (routine?.exercises[sender.tag].sets.count)!, section: sender.tag)], with: .automatic)
         routine?.exercises[sender.tag].sets.append(Set(repNumber: 0, lbsNumber: 0))
@@ -203,7 +192,7 @@ class LiveWorkoutViewController: UIViewController, UITableViewDataSource, UITabl
         
     }
     
-    
+   
     @objc func save() {
         let tempRoutine = Routine(name: (self.routine?.name)!, exercises: (self.routine?.exercises)!)
         
@@ -214,11 +203,13 @@ class LiveWorkoutViewController: UIViewController, UITableViewDataSource, UITabl
                 }
             }
         }
+        
+        let tempSavedRoutine = SavedRoutine(routine: tempRoutine, date: NSDate())
         //Save in userdefaults
-        savedRoutines.append(tempRoutine)
+        savedRoutines.append(tempSavedRoutine)
         let userDefaults = UserDefaults.standard
         let encodedData: Data = NSKeyedArchiver.archivedData(withRootObject: savedRoutines)
-        userDefaults.set(encodedData, forKey: "savedRoutines")
+        userDefaults.set(encodedData, forKey: "history")
         userDefaults.synchronize()
         
      //Return to main screen
@@ -227,6 +218,8 @@ class LiveWorkoutViewController: UIViewController, UITableViewDataSource, UITabl
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
-    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath as IndexPath, animated: true)
+    }
 
 }
