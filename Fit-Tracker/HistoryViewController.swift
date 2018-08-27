@@ -17,6 +17,8 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
   
     @IBOutlet weak var historyTable: UITableView!
     var loadedRoutines = [SavedRoutine] ()
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         historyTable.delegate = self
@@ -59,5 +61,35 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
         return cell
     }
 
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        
+        //Opens up the clicked on routine in RoutineView
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let vc = storyboard.instantiateViewController(withIdentifier: "RoutineHistoryViewController") as! RoutineHistoryViewController //
+        vc.routine = loadedRoutines[indexPath.row].routine
+       
+        self.navigationController?.pushViewController(vc, animated: true)
+        
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            print("Deleted")
+            
+            self.loadedRoutines.remove(at: indexPath.row)
+            self.historyTable.deleteRows(at: [indexPath], with: .automatic)
+            saveHistory()
+        }
+        
+        
+    }
+    
+    private func saveHistory(){
+        let userDefaults = UserDefaults.standard
+        let encodedData: Data = NSKeyedArchiver.archivedData(withRootObject: loadedRoutines)
+        userDefaults.set(encodedData, forKey: "history")
+        userDefaults.synchronize()
+    }
     
 }
