@@ -43,6 +43,10 @@ class WorkoutViewController: UIViewController, UITableViewDelegate, UITableViewD
         
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+    }
+    
     private func loadRoutines() {
         let userDefaults = UserDefaults.standard
         if (userDefaults.object(forKey: "routines") != nil)

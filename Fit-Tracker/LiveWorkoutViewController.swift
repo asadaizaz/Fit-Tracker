@@ -99,6 +99,7 @@ class LiveWorkoutViewController: UIViewController, UITableViewDataSource, UITabl
         routineNameText.text = routine?.name
         exerciseTableView.rowHeight = UITableViewAutomaticDimension
         exerciseTableView.estimatedRowHeight = 500
+        exerciseTableView.keyboardDismissMode = .onDrag
         setupBarButtons()
         let userDefaults = UserDefaults.standard
         if (userDefaults.object(forKey: "history") != nil)

@@ -25,8 +25,6 @@
 		C3EC4A232124AAC80021805C /* Fit_TrackerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3EC4A222124AAC80021805C /* Fit_TrackerTests.swift */; };
 		C3EC4A2E2124AAC80021805C /* Fit_TrackerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3EC4A2D2124AAC80021805C /* Fit_TrackerUITests.swift */; };
 		C3EC4A3C2124ADDA0021805C /* WorkoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3EC4A3B2124ADDA0021805C /* WorkoutViewController.swift */; };
-		C3EC4A3E2124ADF80021805C /* GraphsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3EC4A3D2124ADF80021805C /* GraphsViewController.swift */; };
-		C3EC4A402124B0F40021805C /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3EC4A3F2124B0F40021805C /* SettingsViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -71,8 +69,6 @@
 		C3EC4A2D2124AAC80021805C /* Fit_TrackerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fit_TrackerUITests.swift; sourceTree = "<group>"; };
 		C3EC4A2F2124AAC80021805C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C3EC4A3B2124ADDA0021805C /* WorkoutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutViewController.swift; sourceTree = "<group>"; };
-		C3EC4A3D2124ADF80021805C /* GraphsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphsViewController.swift; sourceTree = "<group>"; };
-		C3EC4A3F2124B0F40021805C /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -133,8 +129,6 @@
 				C3EC4A3B2124ADDA0021805C /* WorkoutViewController.swift */,
 				C346EF6F21275B360002C838 /* RoutineViewController.swift */,
 				C346EF6B21274B410002C838 /* ExerciseViewController.swift */,
-				C3EC4A3F2124B0F40021805C /* SettingsViewController.swift */,
-				C3EC4A3D2124ADF80021805C /* GraphsViewController.swift */,
 				C3EC4A142124AAC80021805C /* Assets.xcassets */,
 				C3EC4A162124AAC80021805C /* LaunchScreen.storyboard */,
 				C3EC4A192124AAC80021805C /* Info.plist */,
@@ -297,11 +291,9 @@
 			files = (
 				C37B0230212A89A700787572 /* ChooseRoutineViewController.swift in Sources */,
 				C3EC4A3C2124ADDA0021805C /* WorkoutViewController.swift in Sources */,
-				C3EC4A3E2124ADF80021805C /* GraphsViewController.swift in Sources */,
 				C3EC4A102124AAC70021805C /* ViewController.swift in Sources */,
 				C325115021321278009D9178 /* HistoryViewController.swift in Sources */,
 				C346EF7021275B360002C838 /* RoutineViewController.swift in Sources */,
-				C3EC4A402124B0F40021805C /* SettingsViewController.swift in Sources */,
 				C346EF72212786840002C838 /* Routine.swift in Sources */,
 				C346EF6C21274B410002C838 /* ExerciseViewController.swift in Sources */,
 				C3D65A422130CA0A003EBDD0 /* Set.swift in Sources */,

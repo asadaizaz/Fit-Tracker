@@ -23,11 +23,16 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
         super.viewDidLoad()
         historyTable.delegate = self
         historyTable.dataSource = self
-        loadHistory()
-        
+        //loadHistory()
+
         
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        loadHistory()
+        historyTable.reloadData()
+    }
     func loadHistory() {
         let userDefaults = UserDefaults.standard
         if (userDefaults.object(forKey: "history") != nil)
