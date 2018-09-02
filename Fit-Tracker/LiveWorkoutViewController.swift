@@ -198,12 +198,14 @@ class LiveWorkoutViewController: UIViewController, UITableViewDataSource, UITabl
         let tempRoutine = Routine(name: (self.routine?.name)!, exercises: (self.routine?.exercises)!)
         
         for e in tempRoutine.exercises {
-            for (index, s) in e.sets.enumerated() {
+            for (_, s) in e.sets.enumerated() {
                 if (!s.saved) {
-                    e.sets.remove(at: index)
-                }
+                    e.sets = e.sets.filter { $0 != s}
+
+                
             }
         }
+    }
         
         let tempSavedRoutine = SavedRoutine(routine: tempRoutine, date: NSDate())
         //Save in userdefaults
@@ -224,3 +226,4 @@ class LiveWorkoutViewController: UIViewController, UITableViewDataSource, UITabl
     }
 
 }
+
